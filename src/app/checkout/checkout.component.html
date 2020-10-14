@@ -1,0 +1,77 @@
+<div class="conatiner">
+    <h1>Reactive-forms</h1>
+    <br>
+    <form [formGroup]="checkoutForm" (ngSubmit)="postData();">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail3" formControlName="emailAddr">
+                <span
+                    *ngIf="checkoutForm.get('emailAddr').touched && checkoutForm.get('emailAddr').hasError('required')">Kindly
+                    enter the email Address</span>
+                <span
+                    *ngIf="checkoutForm.get('emailAddr').touched && checkoutForm.get('emailAddr').hasError('email')">Enter
+                    Valid email Address</span>
+                <span
+                    *ngIf="checkoutForm.get('emailAddr').touched && checkoutForm.get('emailAddr').hasError('minlength')">Minimum
+                    5 charactes required</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Quantity</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputPassword3" formControlName="quantity">
+                <span
+                    *ngIf="checkoutForm.get('quantity').touched && checkoutForm.get('quantity').hasError('required')">Please
+                    Enter the Quantity</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Items</label>
+            <div class="col-sm-10" formArrayName="items">
+                <div *ngFor="let item of checkoutForm.controls.items['controls']; let i=index"[formGroupName]="i">
+                    <a [routerLink]  (click)="removeItem(i)">Remove item</a>
+                    <br>
+                    <input type="text" class="form-control" formControlName="itemId" id="task{{i}}">
+
+                    <br>
+                    <input type="text" class="form-control" formControlName="itemName" id="task{{i}}">
+                    <br>
+                    <input type="text" class="form-control" formControlName="itemDesc" id="task{{i}}">
+                    <br>
+                    <input type="checkbox" formControlName="itemDone"> Mark as Done
+
+                </div>
+                
+            </div>
+        </div>
+   
+
+      
+
+        <div class="form-group row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1" formControlName="terms">
+                    <label class="form-check-label" for="gridCheck1">
+                        Agreed on terms
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">checkout</button>
+                <button type="submit" class="btn btn-link" (click)="resetForm()">clear</button>
+                <button type="submit" class="btn btn-success" style='margin-right:16px' (click)="addNewItem()">Add Row</button>
+                <!-- <button type="submit" class="btn btn-danger"  (click)="removeItem()">Remove Row</button> -->
+
+            </div>
+        </div>
+        <br>
+
+    </form>
+</div>
